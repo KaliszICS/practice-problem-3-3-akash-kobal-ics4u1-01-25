@@ -1,27 +1,56 @@
+import java.util.ArrayList;
+
 public class PracticeProblem {
 
 	public static void main(String args[]) {
 
 	}
+	public static ArrayList<String> perms(String str) {
+		//Base Case:
+		if (str.length() == 0) {
+			ArrayList<String> base = new ArrayList<>();
+			base.add("");
+			return base;
+		}
+		ArrayList<String> result = new ArrayList<>();
+		//Recursive Case:
+		char first = str.charAt(0);
+		String rest = str.substring(1);
+		ArrayList<String> permsOfRest = perms(rest);
+		for (String perm : permsOfRest) {
+		for (int i = 0; i <= perm.length(); i++) {
+			String before = perm.substring(0, i);
+			String after =  perm.substring(i);
+			String newPerm = before + first + after;
+			result.add(newPerm);
+		}
+		}
+		return result;
+}
+//Question 2
+public static ArrayList<String> permsUnique(String str) {
+    // Base Case:
+    if (str.length() == 0) {
+        ArrayList<String> base = new ArrayList<>();
+        base.add("");
+        return base;
+    }
 
-	public static void q1() {
-		//Write question 1 code here
-	}
+    char first = str.charAt(0);
+    String rest = str.substring(1);
 
-	public static void q2() {
-		//Write question 2 code here
-	}
+    ArrayList<String> permsOfRest = permsUnique(rest);
 
-	public static void q3() {
-		//Write question 3 code here
-	}
+    java.util.HashSet<String> set = new java.util.HashSet<>();
 
-	public static void q4() {
-		//Write question 4 code here
-	}
+    for (String perm : permsOfRest) {
+        for (int i = 0; i <= perm.length(); i++) {
+            String before = perm.substring(0, i);
+            String after = perm.substring(i);
+            set.add(before + first + after);
+        }
+    }
 
-	public static void q5() {
-		//Write question 5 code here
-	}
-
+    return new ArrayList<>(set);
+}
 }
